@@ -1,0 +1,82 @@
+{% extends 'recipe_book/base.html' %}
+{%load static%}
+
+{% block title %}Ингредиенты{% endblock %}
+
+{% block content %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/ingredient_list.css' %}">
+<script type="text/javascript">
+
+function display_this_types(type_ids){
+	var parent = document.getElementById('components');
+	var childs = Array.from(parent.children);
+	
+	var type_ids_str = [];
+	for(var i in type_ids){
+		type_ids_str.push('type_' + type_ids[i]);
+	}
+	
+	
+	// если нет фильтра - показываем все
+	if (type_ids.length == 0){
+		for(var i in childs){
+			childs[i].classList.remove('hidden');
+		}
+	}else{ // если есть - показываем только те, что совпадают с фильтром	
+		for(var i in childs){
+			var found = false;
+			
+			for(var j in type_ids_str){
+				if (childs[i].classList.contains( type_ids_str[j])){
+					childs[i].classList.remove('hidden');
+					found = true;
+					break;
+				}
+			}
+			if (!found){
+				childs[i].classList.add('hidden');
+			}
+		}
+	}
+}
+
+var ids = [];
+function add_component_to_search_list(e, id){
+	if (ids.indexOf(id) < 0){
+		ids.push(id);
+		// добавить отображение элемента в #search_field & возможность удаления оттуда
+		
+		//временно:
+		document.getElementById('search_field').innerHTML=ids;
+		//конец временно
+	}
+}
+
+function fill_ids_field(){
+	document.getElementById('ids_to_search').value = ids.join(',');
+}
+</script>
+
+<br/><br/>
+
+<form method="POST" action="{% url 'ingredients_search' %}">
+	{%csrf_token%}
+	<div style="width:90%" class="debug-border" id="search_field">осталось придумать, как здесь отображать выбранные ингредиенты </div> <!--грязный хак с шириной в 90%, сделать нормально (флексбокс)-->
+	<input type="hidden" name="ids" id="ids_to_search"></input>
+	<input type="submit" value="поиск" onclick="fill_ids_field()"></input>
+</form>
+
+<br/><br/>
+{% include 'recipe_book/list_type.html' with types=types only %}
+<br/><br/>
+<div class="flex-container flex-wrap-wrap flex-direction-row debug-border" id="components">
+{% for ingredient in ingredients %}
+	<div class="debug-border component clickable type_{{ingredient.id_type_id}}" onclick="add_component_to_search_list(this, {{ingredient.id}})">
+		{{ingredient.name}} - очередной супер ингредиент
+	</div>
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'recipe_book/base.html' %}
+
+{% block title %}Поиск по рецептам{% endblock %}
+
+{% block content %}
+поиск по рецептам
+<br/>
+{% for v in object_list.values %}
+	<a href="{% url 'recipe' v.id %}">{{v.name}}</a><br/>
+{% endfor %}
+\\
+{% endblock %}

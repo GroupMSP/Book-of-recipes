@@ -1,0 +1,14 @@
+#components{
+	width: 400px; /* just test */
+}
+
+.component{
+	width: 125px;
+	height: 75px;
+}
+
+#search_field{
+	/*переписать на флексбокс */
+	float: left;
+	width: 200px;	
+}

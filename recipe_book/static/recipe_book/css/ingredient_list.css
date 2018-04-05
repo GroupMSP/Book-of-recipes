@@ -1,0 +1,17 @@
+#components{
+	width: 400px; /* just test */
+}
+
+.component{
+	width: 125px;
+	height: 75px;
+}
+
+.selected{
+	background-color: yellow;
+}
+
+#search_field{
+	height: 50px;
+	float:left;
+}

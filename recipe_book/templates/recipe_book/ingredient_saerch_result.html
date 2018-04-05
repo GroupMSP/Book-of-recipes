@@ -1,0 +1,12 @@
+{% extends 'recipe_book/base.html' %}
+
+{% block title %}Поиск по ингредиентам{% endblock %}
+
+{% block content %}
+поиск по ингредиентам:<br/>
+можно приготовить: <br/>
+{% for rec_ing in object_list %}
+	<a href="{% url 'recipe' rec_ing.id_recipe.id %}">{{rec_ing.id_recipe.name}} </a><br/>
+{% endfor %}
+||
+{% endblock %}

@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	var type_ids = [];
+	function toggle_filter(e){
+		var type_id = e.getElementsByClassName('type_id')[0].value - 0;
+		
+		e.classList.toggle('selected');
+		
+		var index = type_ids.indexOf(type_id);
+		if (index > -1){
+			type_ids.splice(index, 1);
+		}else{
+			type_ids.push(type_id);
+		}
+		
+		display_this_types(type_ids); /* это нужно объявить во внешнем коде */
+	}
+</script>
+
+<div class="flex-container flex-wrap-wrap flex-direction-row">
+{% for type in types %}
+<div onclick="toggle_filter(this)" class="debug-border wrapper clickable">
+	тип рецепта {{type.name}}
+	<input type="hidden" readonly="" class="type_id" value={{type.id}}></input>
+</div>
+{% endfor %}
+</div>

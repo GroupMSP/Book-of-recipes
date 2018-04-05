@@ -1,0 +1,19 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>{% block title %}some title{% endblock %}</title>
+		{% block head %}{% endblock %}
+		<style type="text/css">
+			.debug-border{
+				border: 0.2px solid red;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/global.css' %}">
+	</head>
+	<body>
+		{% include 'recipe_book/header.html' %}
+		{% block content %}{% endblock %}
+	</body>
+</html>

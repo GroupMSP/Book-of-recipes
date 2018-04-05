@@ -1,0 +1,15 @@
+{% extends 'recipe_book/base.html' %}
+
+{% block title %}{{object.name}}{% endblock %}
+
+{% block content %}
+
+__рецепт номер__ {{object.pk}}<br/>
+{{object.name}}
+{{object.decsription}}
+{{object.preparation_time}}
+
+{% if object.image %}
+	{{object.image.url}}
+{% endif %}
+{% endblock %}

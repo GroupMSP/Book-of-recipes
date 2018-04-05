@@ -1,0 +1,23 @@
+.flex-container {
+	display: -webkit-flex; 
+	display: flex; /*отображает контейнер как блочный элемент*/
+}
+
+.flex-direction-row{
+	flex-direction: row;
+	-webkit-flex-direction: row;
+}
+
+.flex-wrap-wrap{
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+}
+
+.clickable{
+	cursor: pointer;
+}
+
+
+.hidden{
+	display: none;
+}
