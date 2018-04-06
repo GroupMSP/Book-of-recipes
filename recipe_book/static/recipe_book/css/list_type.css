@@ -1,4 +1,4 @@
-.types_recipe{
+.type_items{
 	margin-left:1%;
 	margin-right:1%;
 	display: -webkit-flex;
@@ -9,12 +9,12 @@
 	text-decoration:none;
 }
 
-.type_recipe{
+.type_item{
 	margin:5px;
 	border: 0.2px solid #a1cbf0;
 }
 
-.type_recipe:hover {
+.type_item:hover {
   background:#f2f2f2;/*добавляем эффект при наведении*/
   color: #000;
 }

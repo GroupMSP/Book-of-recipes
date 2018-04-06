@@ -16,9 +16,9 @@
 	}
 </script>
 
-<div class="types_recipe">
+<div class="type_items">
 {% for type in types %}
-	<div onclick="toggle_filter(this)" class="wrapper clickable type_recipe">
+	<div onclick="toggle_filter(this)" class="wrapper clickable type_item">
 		{{type.name}}
 		<input type="hidden" readonly="" class="type_id" value={{type.id}}></input>
 	</div>

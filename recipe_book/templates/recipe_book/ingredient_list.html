@@ -61,8 +61,6 @@ function fill_ids_field(){
 }
 </script>
 
-<br/><br/>
-
 <form method="POST" action="{% url 'ingredients_search' %}">
 	{%csrf_token%}
 	<div style="width:90%" class="debug-border" id="search_field">осталось придумать, как здесь отображать выбранные ингредиенты </div> <!--грязный хак с шириной в 90%, сделать нормально (флексбокс)-->
