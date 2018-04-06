@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/ingredient_list.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_type.css' %}">
 <script type="text/javascript">
 
 function display_this_types(type_ids){
@@ -71,11 +72,15 @@ function fill_ids_field(){
 
 <br/><br/>
 {% include 'recipe_book/list_type.html' with types=types only %}
-<br/><br/>
+
 <div class="flex-container" id="components">
 {% for ingredient in ingredients %}
 	<figure class="caption-border component clickable type_{{ingredient.id_type_id}}" onclick="add_component_to_search_list(this, {{ingredient.id}})">
-		<img src="{% static pic %}">
+{% if ingredient.image %}
+	<img src="{{ ingredient.image.url }}">
+{% else %}
+	<img src="{% static 'recipe_book/img/no_image.png' %}">
+{% endif %}
 		<figcaption>{{ ingredient.name }}</figcaption>
 	</figure>
 {% endfor %}

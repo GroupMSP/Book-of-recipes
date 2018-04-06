@@ -16,11 +16,11 @@
 	}
 </script>
 
-<div class="flex-container flex-wrap-wrap flex-direction-row">
+<div class="types_recipe">
 {% for type in types %}
-<div onclick="toggle_filter(this)" class="debug-border wrapper clickable">
-	тип рецепта {{type.name}}
-	<input type="hidden" readonly="" class="type_id" value={{type.id}}></input>
-</div>
+	<div onclick="toggle_filter(this)" class="wrapper clickable type_recipe">
+		{{type.name}}
+		<input type="hidden" readonly="" class="type_id" value={{type.id}}></input>
+	</div>
 {% endfor %}
 </div>
