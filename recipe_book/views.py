@@ -45,7 +45,6 @@ class IngredientSearchListView(views.generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         ids = self.request.POST.get('ids')
-        print(ids)
         context['object_list'] = self.get_queryset(ids)
         return context
 
