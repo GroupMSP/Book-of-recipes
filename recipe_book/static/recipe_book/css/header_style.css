@@ -1,0 +1,65 @@
+body {
+    margin: 0px;
+}
+
+header .block_header {
+	display: -webkit-flex; 
+	-webkit-justify-content: flex-start;
+	display: flex;
+	width: 100%;
+	background: #a1cbf0;
+	height: auto;
+	flex-direction:row;
+	justify-content:space-between;
+	align-items: center;
+	margin-bottom:30px;
+}
+
+header #img_logo {
+	width:90px;
+	height:85px;
+	padding:10px;
+}
+
+header p {
+	margin:0px;
+	font-size: 30px;
+	color:#fff;
+	font-weight: bold;
+}
+
+/*menu*/
+header .main_menu{
+	padding:10px;
+}
+
+header ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+}
+
+header a {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  /*background:#30A8E6; /*добавл€ем фон к пункту меню*/
+  background:#fff; /*добавл€ем фон к пункту меню*/
+  color:#30A8E6; /*мен€ем цвет ссылок*/
+  padding:15px 30px; /*добавл€ем отступ*/
+  font-family: arial; /*мен€ем шрифт*/
+  border-radius:4px; /*добавл€ем скругление*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+  font-weight:bold;
+  font-size:22px;
+}
+
+header a:hover {
+  background:#f2f2f2;/*добавл€ем эффект при наведении*/
+}
+
+header li {
+  float:left; /*–азмещаем список горизонтально дл€ реализации меню*/
+  margin-right:8px; /*ƒобавл€ем отступ у пунктов меню*/
+  
+}
