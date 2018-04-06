@@ -1,12 +1,3 @@
-#components{
-	width: 400px; /* just test */
-}
-
-.component{
-	width: 125px;
-	height: 75px;
-}
-
 .selected{
 	background-color: yellow;
 }

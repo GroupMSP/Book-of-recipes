@@ -7,6 +7,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/ingredient_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
 <script type="text/javascript">
 
 function display_this_types(type_ids){
@@ -71,11 +72,12 @@ function fill_ids_field(){
 <br/><br/>
 {% include 'recipe_book/list_type.html' with types=types only %}
 <br/><br/>
-<div class="flex-container flex-wrap-wrap flex-direction-row debug-border" id="components">
+<div class="flex-container" id="components">
 {% for ingredient in ingredients %}
-	<div class="debug-border component clickable type_{{ingredient.id_type_id}}" onclick="add_component_to_search_list(this, {{ingredient.id}})">
-		{{ingredient.name}} - очередной супер ингредиент
-	</div>
+	<figure class="caption-border component clickable type_{{ingredient.id_type_id}}" onclick="add_component_to_search_list(this, {{ingredient.id}})">
+		<img src="{% static pic %}">
+		<figcaption>{{ ingredient.name }}</figcaption>
+	</figure>
 {% endfor %}
 </div>
 

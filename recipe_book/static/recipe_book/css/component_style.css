@@ -1,0 +1,33 @@
+#components{
+	display: -webkit-flex; 
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	/*max-width:1300px;
+    padding: 0 27px; 
+    margin: auto; */
+}
+
+.caption-border {
+	flex:0 0 20%;
+	/*width: 300px;*/
+	margin: 5px;
+	border: 4px solid #a1cbf0;
+	background: white;
+	padding: 7px;
+	text-align: center;
+}
+
+.caption-border img {
+	width: 280px;
+	height: 200px;
+}
+
+.caption-border figcaption {
+	padding: 10px;
+	color: white;
+	background: #a1cbf0;
+	text-transform: uppercase;
+}
+
