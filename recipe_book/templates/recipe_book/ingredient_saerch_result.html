@@ -5,8 +5,10 @@
 {% block content %}
 поиск по ингредиентам:<br/>
 можно приготовить: <br/>
-{% for rec_ing in object_list %}
-	<a href="{% url 'recipe' rec_ing.id_recipe.id %}">{{rec_ing.id_recipe.name}} </a><br/>
+
+{% for recipe, required in object_list %}
+	<a href="{% url 'recipe' recipe.id %}">{{recipe.name}}</a>
+	| еще {{required}} ингредиента(ов) и можно приготовить<br/>
 {% endfor %}
 ||
 {% endblock %}
