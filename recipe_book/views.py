@@ -21,7 +21,7 @@ class RecipesListView(views.generic.ListView):
     context_object_name = 'recipes'
 
     def get_queryset(self):
-        return models.Recipe.objects.all().values('id', 'name', 'image', 'id_type_id')
+        return models.Recipe.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,7 +62,7 @@ class RecipeSearchListView(views.generic.TemplateView):
         return render(request, self.template_name, context)
 
     def get_queryset(self, q):
-        return models.Recipe.objects.filter(name__icontains=q).values()
+        return models.Recipe.objects.filter(name__icontains=q)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

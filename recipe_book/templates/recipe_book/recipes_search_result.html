@@ -24,7 +24,7 @@
 	<figure class="caption-border clickable type_{{recipe.id_type_id}}">
 		<a href="{% url 'recipe' recipe.id %}">
 			{% if recipe.image %}
-			<img src="/media/{{ recipe.image }}"/>			
+			<img src="{{ recipe.image.url }}"/>
 			{% else %}
 			<img src="{% static 'recipe_book/img/no_image.png' %}">
 			{% endif %}			
