@@ -2,7 +2,34 @@
 	background-color: yellow;
 }
 
-#search_field{
-	height: 50px;
-	float:left;
+.ingredient_selected{
+	cursor: pointer;
+
+	border: 0.7px solid silver; /* Рамка */
+	padding: 5px; /* Поля */
+	color: #000; /* Цвет текста */	
+	border-radius: 5px; 
+	margin:5px;
+	display:inline-block;
+	vertical-align:top;
+}
+
+.ingredient_selected:hover {
+  background:#a1cbf0;/*добавляем эффект при наведении*/
+  color: #fff;
+}
+
+.info_ingredient{
+	font-size: 14px;
+	display:inline-block;
+}
+
+.close{	
+	color: #000;	
+	font-size: 16px;
+	display:inline-block;
+}	
+
+.close:hover{
+ color: #fff;
 }

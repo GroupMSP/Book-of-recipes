@@ -1,0 +1,37 @@
+form {
+  	display: -webkit-flex; 
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom:10px;
+}
+
+.block_search .btn {
+  width: 46px;
+  min-height: 46px;
+  border: none;
+  background: #a1cbf0;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  color: #fff;
+}
+
+.block_search #search_field {
+	flex: 0 0 90%;
+  min-height: 42px;
+  padding-left: 10px;
+  border: 2px solid #a1cbf0;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  background: #f2f2f2;
+  color: #9E9C9C;
+  
+  	margin-left:1%;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+}

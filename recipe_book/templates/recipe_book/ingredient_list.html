@@ -3,14 +3,16 @@
 
 {% block title %}Ингредиенты{% endblock %}
 
-{% block content %}
-
-
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/global.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/ingredient_list.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_type.css' %}">
-<script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_style.css' %}">
+{%endblock%}
 
+{% block content %}
+<script type="text/javascript">
 function display_this_types(type_ids){
 	var parent = document.getElementById('components');
 	var childs = Array.from(parent.children);
@@ -19,8 +21,7 @@ function display_this_types(type_ids){
 	for(var i in type_ids){
 		type_ids_str.push('type_' + type_ids[i]);
 	}
-	
-	
+		
 	// если нет фильтра - показываем все
 	if (type_ids.length == 0){
 		for(var i in childs){
@@ -45,43 +46,65 @@ function display_this_types(type_ids){
 }
 
 var ids = [];
-function add_component_to_search_list(e, id){
-	if (ids.indexOf(id) < 0){
-		ids.push(id);
-		// добавить отображение элемента в #search_field & возможность удаления оттуда
-		
-		//временно:
-		document.getElementById('search_field').innerHTML=ids;
-		//конец временно
-	}
+var id_found;
+
+function deleteFromSearch(elem){
+	var parent = elem.parentElement;
+	parent.style.display = 'none';
+	var id = parent.getAttribute('id')
+	var idx = ids.indexOf(id);
+    if (idx != -1) {
+        // Второй параметр - число элементов, которые необходимо удалить
+        return ids.splice(idx, 1);
+    }	
 }
 
 function fill_ids_field(){
 	document.getElementById('ids_to_search').value = ids.join(',');
 }
+
+function addElemToSearchField(elem){
+	var container = document.getElementById("search_field");
+	var child = document.createElement("div")
+	child.className = "ingredient_selected";
+	child.setAttribute('id', elem.getAttribute('id'));
+	id = elem.getAttribute('id')
+	if (ids.indexOf(id) < 0){
+		ids.push(id)
+	
+		child.innerHTML = '<div class="info_ingredient">'+elem.getAttribute('name')+'</div>\
+				<div class="close" onclick="deleteFromSearch(this)">\
+					&times;\
+				</div>';
+			
+		container.appendChild(child);
+	}
+}
 </script>
 
-<form method="POST" action="{% url 'ingredients_search' %}">
-	{%csrf_token%}
-	<div style="width:90%" class="debug-border" id="search_field">осталось придумать, как здесь отображать выбранные ингредиенты </div> <!--грязный хак с шириной в 90%, сделать нормально (флексбокс)-->
-	<input type="hidden" name="ids" id="ids_to_search"></input>
-	<input type="submit" value="поиск" onclick="fill_ids_field()"></input>
-</form>
+<div class="block_search">
+	<form method="POST" action="{% url 'ingredients_search' %}">
+		{%csrf_token%}
+		<div class="debug-border" id="search_field">
+		</div> 
+		<input type="hidden" name="ids" id="ids_to_search"></input>
+		<input type="submit" class="btn" value="поиск" onclick="fill_ids_field()"></input>
+	</form>
+</div>
 
-<br/><br/>
 {% include 'recipe_book/list_type.html' with types=types only %}
 
 <div class="flex-container" id="components">
-{% for ingredient in ingredients %}
-	<figure class="caption-border component clickable type_{{ingredient.id_type_id}}" onclick="add_component_to_search_list(this, {{ingredient.id}})">
-{% if ingredient.image %}
-	<img src="{{ ingredient.image.url }}">
-{% else %}
-	<img src="{% static 'recipe_book/img/no_image.png' %}">
-{% endif %}
+	{% for ingredient in ingredients %}
+	<figure id="{{ingredient.id}}" class="caption-border caption-border-ingredients clickable type_{{ingredient.id_type_id}}" onclick="addElemToSearchField(this)" name="{{ingredient.name}}">
+		{% if ingredient.image %}
+		<img src="{{ ingredient.image.url }}">
+		{% else %}
+		<img src="{% static 'recipe_book/img/no_image.png' %}">
+		{% endif %}
 		<figcaption>{{ ingredient.name }}</figcaption>
 	</figure>
-{% endfor %}
+	{% endfor %}
 </div>
 
 {% endblock %}
