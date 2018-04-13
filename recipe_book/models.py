@@ -4,15 +4,24 @@ from .utils import FilePathGenerator
 class IngredientType(models.Model):
     name = models.CharField(max_length=63)
 
+    def __str__(self):
+        return '(%d) %s' % (self.id, self.name)
+
 
 class RecipeType(models.Model):
     name = models.CharField(max_length=63)
+
+    def __str__(self):
+        return '(%d) %s' % (self.id, self.name)
 
 
 class Instruction(models.Model):
     id_recipe = models.ForeignKey(to='Recipe', on_delete=models.CASCADE)
     step = models.IntegerField()
     text = models.CharField(max_length=1023)
+
+    def __str__(self):
+        return '(%d) step %d: %s' % (self.id, self.step, self.text[:80])
 
 
 class Recipe(models.Model):
@@ -24,6 +33,9 @@ class Recipe(models.Model):
     id_type = models.ForeignKey(to=RecipeType, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField('Ingredient',
         through='Recipe_ingredient', related_name='recipes')
+
+    def __str__(self):
+        return '(%d) %s' % (self.id, self.name)
 
     def get_by_ingredients_ids(ids):
         """
@@ -55,8 +67,14 @@ class Ingredient(models.Model):
         blank=True)
     id_type = models.ForeignKey(to=IngredientType, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '(%d) %s' % (self.id, self.name)
+
 
 class Recipe_ingredient(models.Model):
     id_recipe = models.ForeignKey(to=Recipe, on_delete=models.CASCADE)
     id_ingredient = models.ForeignKey(to=Ingredient, on_delete=models.CASCADE)
     amount = models.CharField(max_length=63)
+
+    def __str__(self):
+        return '(%d) %s <-> %s' % (self.id, self.id_recipe.name, self.id_ingredient.name)
