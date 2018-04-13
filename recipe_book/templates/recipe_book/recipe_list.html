@@ -4,65 +4,43 @@
 {% block title %}рецепты{% endblock %}
 
 {% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/global.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/recipe_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_type.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_style.css' %}">
 {%endblock%}
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_type.css' %}">
-<script type="text/javascript">
+<div class="block_search">
+	<form method="POST" action="{% url 'recipes_search' %}">
+		{%csrf_token%}
+		<input type="text" required="" name="q" value="" id="search_field" placeholder="поиск по названию"></input>
+		<input type="submit" class="btn" value="поиск"></input>
+	</form>
+</div>
 
-function display_this_types(type_ids){
-	var parent = document.getElementById('components');
-	var childs = Array.from(parent.children);
-	
-	var type_ids_str = [];
-	for(var i in type_ids){
-		type_ids_str.push('type_' + type_ids[i]);
-	}
-	
-	
-	// если нет фильтра - показываем все
-	if (type_ids.length == 0){
-		for(var i in childs){
-			childs[i].classList.remove('hidden');
-		}
-	}else{ // если есть - показываем только те, что совпадают с фильтром	
-		for(var i in childs){
-			var found = false;
-			
-			for(var j in type_ids_str){
-				if (childs[i].classList.contains( type_ids_str[j])){
-					childs[i].classList.remove('hidden');
-					found = true;
-					break;
-				}
-			}
-			if (!found){
-				childs[i].classList.add('hidden');
-			}
-		}
-	}
-}
-</script>
-
-<br/><br/>
-
-<form method="POST" action="{% url 'recipes_search' %}">
-	{%csrf_token%}
-	<input type="text" required="" name="q" value="" id="search_field" placeholder="поиск по названию"></input>
-	<input type="submit" value="поиск"></input>
-</form>
-
-<br/><br/>
-{% include 'recipe_book/list_type.html' with types=types only %}
-<br/><br/>
-<div class="flex-container flex-wrap-wrap flex-direction-row debug-border" id="components"> <!--элемент с ид=components-->
-{% for recipe in recipes %}
-	<div class="debug-border component clickable type_{{recipe.id_type_id}}"> <!--необходимо чтобы именно первый потомок(вглубину) элемента с id=components имел в классах type_<число> -->
-		<a href="{% url 'recipe' recipe.id %}"> <!--некрасиво оборачивать <a>,в <div>, но пока не придумал как еще открывать ссылки-->
-			{{recipe.name}}
-		</a>
+<div class="type_items">
+{% for type in types %}
+	<div class="wrapper clickable type_item">
+		{{type.name}}
+		{#{type.id}#}
 	</div>
+{% endfor %}
+</div>
+
+<div class="flex-container" id="components"> 
+{% for recipe in recipes %}
+	<figure class="caption-border clickable type_{{recipe.id_type_id}}">
+		<a href="{% url 'recipe' recipe.id %}">
+			{% if recipe.image %}
+			<img src="/media/{{ recipe.image }}"/>			
+			{% else %}
+			<img src="{% static 'recipe_book/img/no_image.png' %}">
+			{% endif %}			
+			<figcaption>{{recipe.name}}</figcaption>			
+		</a>
+	</figure>
 {% endfor %}
 </div>
 
