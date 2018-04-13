@@ -62,12 +62,13 @@ class RecipeSearchListView(views.generic.TemplateView):
         return render(request, self.template_name, context)
 
     def get_queryset(self, q):
-        return models.Recipe.objects.filter(name__icontains=q)
+        return models.Recipe.objects.filter(name__icontains=q).values()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         q = self.request.POST.get('q')
-        context['object_list'] = self.get_queryset(q)
+        context['recipes'] = self.get_queryset(q)
+        context['q']=q
         return context
 
 

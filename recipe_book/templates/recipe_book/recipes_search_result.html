@@ -1,12 +1,36 @@
 {% extends 'recipe_book/base.html' %}
+{% load static %}
 
 {% block title %}Поиск по рецептам{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/global.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/recipe_list.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_style.css' %}">
+{%endblock%}
+
 {% block content %}
-поиск по рецептам
-<br/>
-{% for v in object_list.values %}
-	<a href="{% url 'recipe' v.id %}">{{v.name}}</a><br/>
+<div class="block_search">
+	<form method="POST" action="{% url 'recipes_search' %}">
+		{%csrf_token%}
+		<input type="text" required="" name="q" value="{{q}}" id="search_field" placeholder="поиск по названию"></input>
+		<input type="submit" class="btn" value="поиск"></input>
+	</form>
+</div>
+
+<div class="flex-container" id="components"> 
+{% for recipe in recipes %}
+	<figure class="caption-border clickable type_{{recipe.id_type_id}}">
+		<a href="{% url 'recipe' recipe.id %}">
+			{% if recipe.image %}
+			<img src="/media/{{ recipe.image }}"/>			
+			{% else %}
+			<img src="{% static 'recipe_book/img/no_image.png' %}">
+			{% endif %}			
+			<figcaption>{{recipe.name}}</figcaption>			
+		</a>
+	</figure>
 {% endfor %}
-\\
+</div>
 {% endblock %}
