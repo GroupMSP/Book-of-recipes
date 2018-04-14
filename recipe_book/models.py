@@ -1,5 +1,11 @@
 from django.db import models
 from .utils import FilePathGenerator
+from collections import namedtuple
+
+
+RecipeRequiredIngredientsTuple = namedtuple('RecipeRequiredIngredientsTuple',
+    'recipe required')
+
 
 class IngredientType(models.Model):
     name = models.CharField(max_length=63)
@@ -48,7 +54,7 @@ class Recipe(models.Model):
         query = Recipe.objects.filter(id__in=recipe_ids).prefetch_related('ingredients')
 
         result = [
-            (
+            RecipeRequiredIngredientsTuple(
                 recipe,
                 sum(# need count of ids
                     1 for ingredient_id in
