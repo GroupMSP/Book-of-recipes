@@ -78,14 +78,27 @@ class RecipeView(views.generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        return context
+
+
+class CategorizedRecipeView(views.View):
+    template_name = 'recipe_book/recipe_list.html'
+
+    def get_queryset(self, type_id): 
+        return models.Recipe.objects.filter(id_type=type_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context['types'] = list(models.RecipeType.objects.all().values())
         return context
+
 
 class MoreRecipesView(views.View):
     template_name = 'recipe_book/null'
 
     def get(self, request):
-        return HttpResponse(render_to_string(template_name, get_context_data(), request))
+        context = self.get_context_data()
+        return render(request, self.template_name, context)
 
     def get_queryset(self, type_id, offset, amount):
         if type_id is None:
@@ -94,9 +107,9 @@ class MoreRecipesView(views.View):
             return models.Recipe.objects.filter(id_type=type_id)[offset:offset + amount]
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        type_id = self.GET.get('type_id')
-        offset = self.GET.get('offset', default=0)
-        amount = self.GET.get('amount', default=30)
-        context['object_list'] = self.get_queryset(type_id, offset, amount)
+        context = {}
+        type_id = int(self.request.GET.get('type_id'))
+        offset = int(self.request.GET.get('offset', default=0))
+        amount = int(self.request.GET.get('amount', default=30))
+        context['recipes'] = self.get_queryset(type_id, offset, amount)
         return context
