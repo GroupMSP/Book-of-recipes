@@ -3,7 +3,7 @@ function httpGet(url, args) {
 	for (var arg in args){
 	    res.push(arg+'='+obj[arg])
 	}
-	var theUrl = url + '/?' + res.join('&'))
+	var theUrl = url + '/?' + res.join('&');
     
     var xmlHttp = null;
     xmlHttp = new XMLHttpRequest();
