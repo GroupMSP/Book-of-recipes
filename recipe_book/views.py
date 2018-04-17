@@ -5,6 +5,8 @@ from django import views
 
 from . import models
 
+RECIPE_PER_LOAD = 30
+
 class IngredientsListView(views.generic.ListView):
     model = models.Ingredient
     template_name = 'recipe_book/ingredient_list.html'
@@ -21,7 +23,8 @@ class RecipesListView(views.generic.ListView):
     context_object_name = 'recipes'
 
     def get_queryset(self):
-        return models.Recipe.objects.all()
+        global RECIPE_PER_LOAD
+        return models.Recipe.objects.all()[:RECIPE_PER_LOAD]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -100,9 +103,10 @@ class MoreRecipesView(views.View):
             return models.Recipe.objects.filter(id_type=type_id)[offset:offset + amount]
 
     def get_context_data(self, **kwargs):
+        global RECIPE_PER_LOAD
         context = {}
         type_id = int(self.request.GET.get('type_id'))
         offset = int(self.request.GET.get('offset', default=0))
-        amount = int(self.request.GET.get('amount', default=30))
+        amount = int(self.request.GET.get('amount', default=RECIPE_PER_LOAD))
         context['recipes'] = self.get_queryset(type_id, offset, amount)
         return context
