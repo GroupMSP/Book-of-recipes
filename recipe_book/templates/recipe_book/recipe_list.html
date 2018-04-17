@@ -1,7 +1,7 @@
 {% extends 'recipe_book/base.html' %}
 {% load static %}
 
-{% block title %}рецепты{% endblock %}
+{% block title %}Рецепты{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/global.css' %}">
@@ -9,9 +9,28 @@
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_type.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/component_style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/list_style.css' %}">
+<script type="text/javascript" src="{% static 'recipe_book/js/ajax.js' %}"></script>
 {%endblock%}
 
 {% block content %}
+<script type="text/javascript">
+var global_offset = {{ RECIPE_PER_LOAD }};
+
+function load_more_recipes(){
+	var container = document.getElementById("components");
+	
+	res = httpGet("{% url 'more_recipes' %}", {
+		offset: global_offset,
+		type_id: {{id_type}}
+	});
+
+	global_offset += {{ RECIPE_PER_LOAD }};
+	
+	var mem = window.scrollY;
+	container.innerHTML += res;
+	window.scrollTo(0,mem);
+}
+</script>
 <div class="block_search">
 	<form method="POST" action="{% url 'recipes_search' %}">
 		{%csrf_token%}
@@ -28,7 +47,6 @@
 	
 		<a class="wrapper clickable type_item" href="{% url 'categorized_recipe' type.id %}">
 		{{type.name}}
-		{#{type.id}#}
 		</a>
 
 {% endfor %}
@@ -41,7 +59,7 @@
 			{% if recipe.image %}
 			<img src="{{ recipe.image.url }}"/>
 			{% else %}
-			<img src="{% static 'recipe_book/img/no_image.png' %}">
+			<img src="{% static 'recipe_book/img/no_image.png' %}"/>
 			{% endif %}			
 			<figcaption>{{recipe.name}}</figcaption>			
 		</a>
@@ -50,7 +68,7 @@
 </div>
 
 <div class="vcenter">
-	<input id="load_more" type="submit" value="Показать больше"/>
+	<input id="load_more" type="submit" value="Показать больше" onclick="load_more_recipes()"/>
 </div>
 
 {% endblock %}

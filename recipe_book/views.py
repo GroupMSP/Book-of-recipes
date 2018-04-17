@@ -27,8 +27,10 @@ class RecipesListView(views.generic.ListView):
         return models.Recipe.objects.all()[:RECIPE_PER_LOAD]
 
     def get_context_data(self, **kwargs):
+        global RECIPE_PER_LOAD
         context = super().get_context_data(**kwargs)
         context['types'] = list(models.RecipeType.objects.all().values())
+        context['RECIPE_PER_LOAD'] = RECIPE_PER_LOAD
         return context
 
 
@@ -88,10 +90,16 @@ class CategorizedRecipeView(RecipesListView):
     def get_queryset(self):
         global RECIPE_PER_LOAD
         return models.Recipe.objects.filter(id_type=self.kwargs['type'])[:RECIPE_PER_LOAD]
+        
+    def get_context_data(self, **kwargs):
+        global RECIPE_PER_LOAD
+        context = super().get_context_data(**kwargs)
+        context['id_type'] = self.kwargs.get('type')
+        return context
 
 
 class MoreRecipesView(views.View):
-    template_name = 'recipe_book/null'
+    template_name = 'recipe_book/more_recipes.html'
 
     def get(self, request):
         context = self.get_context_data()
