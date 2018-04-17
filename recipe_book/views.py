@@ -86,7 +86,8 @@ class RecipeView(views.generic.DetailView):
 
 class CategorizedRecipeView(RecipesListView):
     def get_queryset(self):
-        return models.Recipe.objects.filter(id_type=self.kwargs['type'])
+        global RECIPE_PER_LOAD
+        return models.Recipe.objects.filter(id_type=self.kwargs['type'])[:RECIPE_PER_LOAD]
 
 
 class MoreRecipesView(views.View):
