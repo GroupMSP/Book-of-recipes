@@ -26,6 +26,9 @@ class Instruction(models.Model):
     step = models.IntegerField()
     text = models.CharField(max_length=1023)
 
+    def get_instructions_by_recipe_id(id_recipe):
+        return Instruction.objects.filter(id_recipe=id_recipe)
+
     def __str__(self):
         return '(%d) step %d: %s' % (self.id, self.step, self.text[:80])
 
@@ -82,5 +85,9 @@ class Recipe_ingredient(models.Model):
     id_ingredient = models.ForeignKey(to=Ingredient, on_delete=models.CASCADE)
     amount = models.CharField(max_length=63)
 
+    def get_ingredients_by_recipe_id(id_recipe):
+        return Recipe_ingredient.objects.filter(id_recipe=id_recipe).select_related('id_ingredient')
+
     def __str__(self):
         return '(%d) %s <-> %s' % (self.id, self.id_recipe.name, self.id_ingredient.name)
+

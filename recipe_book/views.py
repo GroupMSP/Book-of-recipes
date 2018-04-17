@@ -80,9 +80,12 @@ class RecipeSearchListView(views.generic.TemplateView):
 class RecipeView(views.generic.DetailView):
     template_name = 'recipe_book/recipe.html'
     model = models.Recipe
+    context_object_name = "recipe"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['ingredients'] = models.Recipe_ingredient.get_ingredients_by_recipe_id(self.kwargs['pk'])
+        context['instruction'] = models.Instruction.get_instructions_by_recipe_id(self.kwargs['pk'])
         return context
 
 

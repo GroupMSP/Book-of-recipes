@@ -1,15 +1,44 @@
 {% extends 'recipe_book/base.html' %}
+{%load static%}
 
 {% block title %}{{object.name}}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'recipe_book/css/recipe_style.css' %}">
+{%endblock%}
+
 
 {% block content %}
 
-__рецепт номер__ {{object.pk}}<br/>
-{{object.name}}
-{{object.decsription}}
-{{object.preparation_time}}
 
-{% if object.image %}
-	{{object.image.url}}
-{% endif %}
+    <div position="absolute">
+        <div id="imgWithTime">
+            <img src="{{ recipe.image.url }}" />
+            <p id="time"> Время приготовления: {{ recipe.preparation_time }}</p>
+        </div>
+        <ul class="menu">
+            <li>{{ recipe.name|capfirst }}</li>
+            {%  for ingredient in ingredients %}
+                <li><span>{{ ingredient.id_ingredient.name }}</span><em>{{ ingredient.amount }}</em></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+    <div class="description" class="afterImage" ;>
+        <h3 id="letscook">Приготовим {{ recipe.name }}</h3>
+        <p id="description">{{ recipe.description }}</p>
+
+    </div>
+
+    <div class="afterImage steps">
+        <h3 id="letscook">Как приготовить</h3>
+        <ol class="bullet">
+            {%  for step in instruction %}
+                <li>{{ step.text }}</li>
+            {%  endfor %}
+        </ol>
+    </div>
+
+
+
 {% endblock %}
