@@ -3,15 +3,9 @@ body {
 }
 
 header .block_header {
-	display: -webkit-flex; 
-	-webkit-justify-content: flex-start;
-	display: flex;
 	width: 100%;
 	background: #a1cbf0;
 	height: auto;
-	flex-direction:row;
-	justify-content:space-between;
-	align-items: center;
 	margin-bottom:30px;
 }
 
@@ -61,4 +55,14 @@ header li {
   float:left; /*Размещаем список горизонтально для реализации меню*/
   margin-right:10px; /*Добавляем отступ у пунктов меню*/
   
+}
+
+.menu-logo{
+	margin: 5px 20px;
+	display: -webkit-flex; 
+	-webkit-justify-content: flex-start;
+	display: flex;
+	flex-direction:row;
+	justify-content:space-between;
+	align-items: center;
 }

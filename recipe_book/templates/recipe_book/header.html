@@ -2,14 +2,16 @@
 <link rel="stylesheet" href="{% static 'recipe_book/css/header_style.css' %}">
 <header>
 	<div class="block_header">
-		<div class="main_menu">
-			<ul>
-				<li><a href="{% url 'ingredients' %}">Ингредиенты</a></li>
-				<li><a href="{% url 'recipes' %}">Рецепты</a></li>
-			</ul>
-		</div>
-		<div class="logo">
-			<img id="img_logo" src="{% static 'recipe_book/img/logo.png' %}" align="middle" />
+		<div class="menu-logo">
+			<div class="main_menu">
+				<ul>
+					<li><a href="{% url 'ingredients' %}">Ингредиенты</a></li>
+					<li><a href="{% url 'recipes' %}">Рецепты</a></li>
+				</ul>
+			</div>
+			<div class="logo">
+				<img id="img_logo" src="{% static 'recipe_book/img/logo.png' %}" align="middle" />
+			</div>
 		</div>
 	</div>
 </header>
