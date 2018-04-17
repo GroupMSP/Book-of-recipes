@@ -106,7 +106,7 @@ class MoreRecipesView(views.View):
         return render(request, self.template_name, context)
 
     def get_queryset(self, type_id, offset, amount):
-        if type_id is None:
+        if type_id is None or type_id == 0:
             return models.Recipe.objects.all()[offset:offset + amount]
         else:
             return models.Recipe.objects.filter(id_type=type_id)[offset:offset + amount]

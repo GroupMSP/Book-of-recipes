@@ -21,7 +21,7 @@ function load_more_recipes(){
 	
 	res = httpGet("{% url 'more_recipes' %}", {
 		offset: global_offset,
-		type_id: {{id_type}}
+		type_id: {{id_type|default:"0"}}
 	});
 
 	global_offset += {{ RECIPE_PER_LOAD }};
