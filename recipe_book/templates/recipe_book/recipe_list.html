@@ -21,14 +21,16 @@
 </div>
 
 <div class="type_items">
-	<div class="wrapper clickable type_item">
+		<a class="wrapper clickable type_item" href="{% url 'recipes' %}">
 		Все рецепты
-	</div>
+		</a>
 {% for type in types %}
-	<div class="wrapper clickable type_item">
+	
+		<a class="wrapper clickable type_item" href="{% url 'categorized_recipe' type.id %}">
 		{{type.name}}
 		{#{type.id}#}
-	</div>
+		</a>
+
 {% endfor %}
 </div>
 

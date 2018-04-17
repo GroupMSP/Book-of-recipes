@@ -27,3 +27,14 @@
 	background-color: #a1cbf0;
 	color: #fff;
 }
+
+.type_items a{
+	text-decoration: none;
+	display:flex;
+}
+
+.type_items a:visited,
+.type_items a:link{
+	text-decoration: none;
+	color: black; 
+}

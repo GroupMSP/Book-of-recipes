@@ -81,16 +81,9 @@ class RecipeView(views.generic.DetailView):
         return context
 
 
-class CategorizedRecipeView(views.View):
-    template_name = 'recipe_book/recipe_list.html'
-
-    def get_queryset(self, type_id): 
-        return models.Recipe.objects.filter(id_type=type_id)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['types'] = list(models.RecipeType.objects.all().values())
-        return context
+class CategorizedRecipeView(RecipesListView):
+    def get_queryset(self):
+        return models.Recipe.objects.filter(id_type=self.kwargs['type'])
 
 
 class MoreRecipesView(views.View):
