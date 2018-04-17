@@ -1,3 +1,20 @@
 figure a{
 	text-decoration: none;
 }
+
+#load_more {
+	cursor: pointer;
+	margin: 10px auto;
+	padding: 15px 30px;
+	border: 2px solid #a1cbf0;
+	border-bottom-width: 4px;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 2px;
+	color: #30A8E6;
+	font-size:18px;
+	background: #fff;
+}
+#load_more:hover {
+	background:#f2f2f2;
+}

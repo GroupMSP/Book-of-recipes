@@ -21,6 +21,9 @@
 </div>
 
 <div class="type_items">
+	<div class="wrapper clickable type_item">
+		Все рецепты
+	</div>
 {% for type in types %}
 	<div class="wrapper clickable type_item">
 		{{type.name}}
@@ -42,6 +45,10 @@
 		</a>
 	</figure>
 {% endfor %}
+</div>
+
+<div class="vcenter">
+	<input id="load_more" type="submit" value="Показать больше"/>
 </div>
 
 {% endblock %}
